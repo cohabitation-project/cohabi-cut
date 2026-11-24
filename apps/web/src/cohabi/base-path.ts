@@ -1,0 +1,3 @@
+// OpenCut's own API routes live under the editor's base path (cohabi.org/cut/api/...); the Commons' are at /api/...
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+export const ownApi = (path: string) => `${BASE_PATH}${path}`;

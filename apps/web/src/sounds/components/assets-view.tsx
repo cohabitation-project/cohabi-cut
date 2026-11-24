@@ -34,6 +34,7 @@ import {
 	PlusSignIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { ownApi } from "@/cohabi/base-path";
 
 export function SoundsView() {
 	return (
@@ -124,7 +125,7 @@ function SoundEffectsView() {
 				}
 
 				const response = await fetch(
-					"/api/sounds/search?page_size=50&sort=downloads",
+					ownApi("/api/sounds/search?page_size=50&sort=downloads"),
 				);
 
 				if (!shouldIgnore) {

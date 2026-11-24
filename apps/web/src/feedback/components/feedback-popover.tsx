@@ -20,6 +20,7 @@ import {
 	clearFormDraft,
 } from "@/components/ui/form";
 import type { FeedbackEntry } from "../types";
+import { ownApi } from "@/cohabi/base-path";
 
 const PERSIST_KEY = "feedback-draft";
 const HISTORY_KEY = "feedback-history";
@@ -61,7 +62,7 @@ function useFeedback() {
 		setIsSubmitting(true);
 
 		try {
-			const res = await fetch("/api/feedback", {
+			const res = await fetch(ownApi("/api/feedback"), {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(values),

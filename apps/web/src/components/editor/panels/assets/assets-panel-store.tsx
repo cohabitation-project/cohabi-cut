@@ -12,10 +12,12 @@ import {
 	Settings01Icon,
 	SlidersHorizontalIcon,
 	ColorsIcon,
+	UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 
 export const TAB_KEYS = [
+	"cohabi",
 	"media",
 	"sounds",
 	"text",
@@ -36,6 +38,10 @@ const createHugeiconsIcon =
 	);
 
 export const tabs = {
+	cohabi: {
+		icon: createHugeiconsIcon({ icon: UserGroupIcon }),
+		label: "From Cohabi",
+	},
 	media: {
 		icon: createHugeiconsIcon({ icon: Folder03Icon }),
 		label: "Media",
@@ -99,7 +105,7 @@ interface AssetsPanelStore {
 export const useAssetsPanelStore = create<AssetsPanelStore>()(
 	persist(
 		(set) => ({
-			activeTab: "media",
+			activeTab: "cohabi",
 			setActiveTab: (tab) => set({ activeTab: tab }),
 			highlightMediaId: null,
 			requestRevealMedia: (mediaId) =>

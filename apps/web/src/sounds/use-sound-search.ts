@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSoundsStore } from "@/sounds/sounds-store";
+import { ownApi } from "@/cohabi/base-path";
 
 export function useSoundSearch({
 	query,
@@ -48,7 +49,7 @@ export function useSoundSearch({
 
 			searchParams.set("commercial_only", commercialOnly.toString());
 			const response = await fetch(
-				`/api/sounds/search?${searchParams.toString()}`,
+				`${ownApi("")}/api/sounds/search?${searchParams.toString()}`,
 			);
 
 			if (response.ok) {
@@ -96,7 +97,7 @@ export function useSoundSearch({
 				resetPagination();
 
 				const response = await fetch(
-					`/api/sounds/search?q=${encodeURIComponent(query)}&type=effects&page=1`,
+					`${ownApi("")}/api/sounds/search?q=${encodeURIComponent(query)}&type=effects&page=1`,
 				);
 
 				if (!ignore) {
