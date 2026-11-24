@@ -124,3 +124,16 @@ export async function fetchAsFile(item: CohabiItem): Promise<File> {
 	const base = item.name.replace(/[^\w\- ]+/g, "").trim().slice(0, 60) || item.id;
 	return new File([blob], `${base}.${EXT[type.split(";")[0]] || "bin"}`, { type });
 }
+
+/** Uploads a finished export as one of the member's Cohabi videos; returns its id. */
+export async function postExport({ buffer, mimeType, title }: { buffer: ArrayBuffer; mimeType: string; title: string }): Promise<string> {
+	const v = await call<RawVideo>(`/api/videos?alt=${encodeURIComponent(title.slice(0, 300))}`, {
+		method: "POST",
+		headers: { "Content-Type": mimeType },
+		body: buffer,
+	});
+	return v.id;
+}
+
+/** Opens the Cohabi feed's composer with this video attached, the same hand-off the old Cut used. */
+export const composeUrl = (videoId: string) => `/social?cut=${encodeURIComponent(videoId)}#compose`;

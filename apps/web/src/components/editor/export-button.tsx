@@ -19,7 +19,9 @@ import {
 	getExportFileExtension,
 	downloadBuffer,
 } from "@/export";
-import { Check, Copy, Download, RotateCcw } from "lucide-react";
+import { Check, Copy, Download, RotateCcw, Send } from "lucide-react";
+import { composeUrl, postExport } from "@/cohabi/api";
+import { toast } from "sonner";
 import {
 	EXPORT_FORMAT_VALUES,
 	EXPORT_QUALITY_VALUES,
@@ -111,7 +113,9 @@ function ExportPopover({
 		DEFAULT_EXPORT_OPTIONS.includeAudio ?? true,
 	);
 
-	const handleExport = async () => {
+	const [isPosting, setIsPosting] = useState(false);
+
+	const handleExport = async ({ post = false }: { post?: boolean } = {}) => {
 		if (!activeProject) return;
 
 		const result = await editor.project.export({
@@ -125,6 +129,27 @@ function ExportPopover({
 
 		if (result.cancelled) {
 			editor.project.clearExportState();
+			return;
+		}
+
+		if (result.success && result.buffer && post) {
+			// Cohabi: send the finished video to the member's Cohabi videos, then open the feed to post it.
+			setIsPosting(true);
+			try {
+				const id = await postExport({
+					buffer: result.buffer,
+					mimeType: getExportMimeType({ format }),
+					title: activeProject.metadata.name,
+				});
+				editor.project.clearExportState();
+				// Save the project first, so leaving for the feed doesn't trip the "unsaved changes" prompt.
+				await editor.save.flush().catch(() => {});
+				window.location.href = composeUrl(id);
+			} catch (e) {
+				toast.error(e instanceof Error ? e.message : "Couldn't post to Cohabi.");
+			} finally {
+				setIsPosting(false);
+			}
 			return;
 		}
 
@@ -149,7 +174,7 @@ function ExportPopover({
 			{exportResult && !exportResult.success ? (
 				<ExportError
 					error={exportResult.error || "Unknown error occurred"}
-					onRetry={handleExport}
+					onRetry={() => handleExport()}
 				/>
 			) : (
 				<>
@@ -252,10 +277,22 @@ function ExportPopover({
 									</Section>
 								</div>
 
-								<div className="p-3 pt-0">
-									<Button onClick={handleExport} className="w-full gap-2">
+								<div className="flex flex-col gap-2 p-3 pt-0">
+									<Button
+										onClick={() => handleExport({ post: true })}
+										disabled={isPosting}
+										className="w-full gap-2"
+									>
+										<Send className="size-4" />
+										{isPosting ? "Posting…" : "Post to Cohabi"}
+									</Button>
+									<Button
+										variant="outline"
+										onClick={() => handleExport()}
+										className="w-full gap-2"
+									>
 										<Download className="size-4" />
-										Export
+										Download
 									</Button>
 								</div>
 							</>
