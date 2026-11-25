@@ -1,0 +1,56 @@
+# Builds Cohabi Cut and publishes it as one file the server downloads (Setu, 2026-11-24).
+# The Commons server has 4 GB of memory and runs the whole site, so it never builds this app itself: GitHub
+# builds it here, and the server only unpacks the result (see deploy/cut-install.sh).
+name: Build preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-preview
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_PATH: /cut-new
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Build
+        working-directory: apps/web
+        run: |
+          cp .env.example .env.local
+          sed -i "s|^BETTER_AUTH_SECRET=.*|BETTER_AUTH_SECRET=$(openssl rand -hex 24)|" .env.local
+          bun run build
+      - name: Package (standalone server + static files)
+        run: |
+          S=apps/web/.next/standalone
+          cp -r apps/web/.next/static "$S/apps/web/.next/static"
+          cp -r apps/web/public "$S/apps/web/public"
+          rm -f "$S/apps/web/.env.local" "$S/apps/web/.env"
+          echo "${GITHUB_SHA}" > "$S/apps/web/COMMIT"
+          tar -czf cohabi-cut.tgz -C "$S" .
+          ls -la cohabi-cut.tgz
+      - name: Smoke test the package
+        run: |
+          mkdir -p /tmp/t && tar -xzf cohabi-cut.tgz -C /tmp/t
+          (cd /tmp/t/apps/web && PORT=3310 HOSTNAME=127.0.0.1 node server.js > /tmp/t.log 2>&1 &)
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3310/cut-new/projects && break; sleep 1; done
+          curl -sf -o /dev/null -w "projects %{http_code}\n" http://127.0.0.1:3310/cut-new/projects
+          curl -sf -o /dev/null -w "editor %{http_code}\n" http://127.0.0.1:3310/cut-new/editor/smoke
+      - name: Publish as the "preview" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view preview >/dev/null 2>&1 || gh release create preview --title "Cohabi Cut preview" --notes "Latest build of main, served at cohabi.org/cut-new." --prerelease
+          gh release upload preview cohabi-cut.tgz --clobber
+          gh release edit preview --notes "Latest build of main (${GITHUB_SHA}), served at cohabi.org/cut-new."
