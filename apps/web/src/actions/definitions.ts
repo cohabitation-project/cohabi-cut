@@ -208,3 +208,13 @@ export function getDefaultShortcuts(): Map<
 
 	return shortcuts;
 }
+
+/**
+ * Cohabi Cut: persistence.ts imports this but upstream (classic cf5e79e) never defined it. Argument types exist only
+ * at compile time, so at run time this accepts any known action; a saved keybinding to an unknown action is dropped.
+ */
+export function isActionWithOptionalArgs(
+	value: unknown,
+): value is import("./types").TActionWithOptionalArgs {
+	return typeof value === "string" && Object.hasOwn(ACTIONS, value);
+}

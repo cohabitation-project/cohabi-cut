@@ -25,7 +25,13 @@ const nextConfig: NextConfig = {
 	reactStrictMode: true,
 	productionBrowserSourceMaps: true,
 	output: "standalone",
+	// Cohabi Cut lands on your projects, not on OpenCut's marketing page.
+	async redirects() {
+		return [{ source: "/", destination: "/projects", permanent: false }];
+	},
 	images: {
+		// No server-side image resizing: no native "sharp" binary to match the server's ARM CPU.
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: "https",

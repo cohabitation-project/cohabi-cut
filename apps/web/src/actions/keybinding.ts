@@ -41,3 +41,15 @@ export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey;
 export type KeybindingConfig = {
 	[key in ShortcutKey]?: TActionWithOptionalArgs;
 };
+
+const MODIFIERS: ReadonlySet<string> = new Set<ModifierKeys>([
+	"ctrl", "alt", "shift", "ctrl+shift", "alt+shift", "ctrl+alt", "ctrl+alt+shift",
+]);
+
+/** Cohabi Cut: persistence.ts imports this but upstream (classic cf5e79e) never defined it. */
+export function isShortcutKey(value: string): value is ShortcutKey {
+	if (isKey(value)) return true;
+	const i = value.lastIndexOf("+");
+	if (i <= 0) return false;
+	return MODIFIERS.has(value.slice(0, i)) && isKey(value.slice(i + 1));
+}
