@@ -1,3 +1,4 @@
+/* Cohabi Cut theme v0.1: brand-lime active states; preserve OpenCut editor functionality. */
 @import "tailwindcss";
 
 /* Custom variant for dark mode */
@@ -8,18 +9,18 @@
 @plugin "tailwindcss-animate";
 
 :root {
-  --background: hsl(0, 0%, 100%);
+  --background: hsl(38, 35%, 96%);
   --foreground: hsl(0 0% 11%);
-  --card: hsl(0, 0%, 100%);
+  --card: hsl(38, 38%, 98%);
   --card-foreground: hsl(0 0% 11%);
-  --popover: hsl(0, 0%, 100%);
+  --popover: hsl(38, 38%, 98%);
   --popover-hover: hsl(0, 0%, 96%);
   --popover-foreground: hsl(0 0% 2%);
-  --primary: hsl(200, 90%, 52%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(204, 100%, 97%);
-  --secondary-border: hsl(204, 100%, 94%);
-  --secondary-foreground: hsl(200, 98%, 39%);
+  --primary: hsl(77, 73%, 68%);
+  --primary-foreground: hsl(80, 18%, 12%);
+  --secondary: hsl(76, 45%, 94%);
+  --secondary-border: hsl(76, 34%, 85%);
+  --secondary-foreground: hsl(77, 28%, 20%);
   --muted: hsl(0 0% 85.1%);
   --muted-foreground: hsl(0 0% 50%);
   --accent: hsl(0, 0%, 96%);
@@ -30,15 +31,15 @@
   --constructive-foreground: hsl(0, 0%, 100%);
   --caution: hsl(38, 92%, 50%);
   --caution-foreground: hsl(0, 0%, 10%);
-  --border: hsl(0 0% 91%);
-  --input: hsl(0, 0%, 100%);
+  --border: hsl(32, 18%, 85%);
+  --input: hsl(38, 38%, 98%);
   --ring: hsl(0, 0%, 55%);
   --chart-1: hsl(220 70% 50%);
   --chart-2: hsl(160 60% 45%);
   --chart-3: hsl(30 80% 55%);
   --chart-4: hsl(280 65% 60%);
   --chart-5: hsl(340 75% 55%);
-  --sidebar-background: hsl(0 0% 96.1%);
+  --sidebar-background: hsl(38, 31%, 96%);
   --sidebar-foreground: hsl(0 0% 2%);
   --sidebar-primary: hsl(0 0% 2%);
   --sidebar-primary-foreground: hsl(0 0% 91%);
@@ -46,18 +47,18 @@
   --sidebar-accent-foreground: hsl(0 0% 2%);
   --sidebar-border: hsl(0 0% 85.1%);
   --sidebar-ring: hsl(0 0% 16.9%);
-  --sidebar: hsl(0 0% 98%);
+  --sidebar: hsl(38, 33%, 97%);
 }
 
 .panel {
-  --background: hsl(210, 20%, 98%);
+  --background: hsl(38, 30%, 97%);
   --foreground: hsl(0 0% 13%);
-  --card: hsl(0, 0%, 98%);
+  --card: hsl(38, 30%, 97%);
   --card-foreground: hsl(0 0% 13%);
-  --primary-foreground: hsl(0, 0%, 98%);
-  --secondary: hsl(204, 100%, 95%);
-  --secondary-border: hsl(204, 100%, 92%);
-  --secondary-foreground: hsl(200, 98%, 37%);
+  --primary-foreground: hsl(80, 18%, 12%);
+  --secondary: hsl(76, 34%, 92%);
+  --secondary-border: hsl(76, 30%, 83%);
+  --secondary-foreground: hsl(77, 28%, 20%);
   --muted: hsl(0 0% 83.1%);
   --muted-foreground: hsl(0 0% 48%);
   --accent: hsl(0, 0%, 93%);
@@ -77,9 +78,9 @@
   --popover: hsl(0, 0%, 5%);
   --popover-hover: hsl(0, 0%, 13%);
   --popover-foreground: hsl(0 0% 95%);
-  --secondary: hsl(204, 100%, 12%);
-  --secondary-border: hsl(204, 100%, 15%);
-  --secondary-foreground: hsl(200, 98%, 61%);
+  --secondary: hsl(77, 27%, 17%);
+  --secondary-border: hsl(77, 28%, 23%);
+  --secondary-foreground: hsl(77, 73%, 68%);
   --muted: hsl(0 0% 20%);
   --accent: hsl(0, 0%, 14%);
   --accent-foreground: hsl(0 0% 95%);
@@ -104,9 +105,9 @@
   --foreground: hsl(0 0% 85%);
   --card: hsl(0, 0%, 10%);
   --card-foreground: hsl(0 0% 85%);
-  --secondary: hsl(204, 67%, 9%);
-  --secondary-border: hsl(204, 100%, 14%);
-  --secondary-foreground: hsl(200, 98%, 63%);
+  --secondary: hsl(77, 23%, 16%);
+  --secondary-border: hsl(77, 26%, 22%);
+  --secondary-foreground: hsl(77, 73%, 68%);
   --muted: hsl(0 0% 22%);
   --accent: hsl(0, 0%, 15%);
   --accent-foreground: hsl(0 0% 93%);
@@ -288,4 +289,28 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Cohabi's original four-square identity in the editor project dropdown.
+   These are decorative mark pixels; all menu actions remain OpenCut's. */
+.cohabi-studio-brand { white-space: nowrap; }
+.cohabi-studio-mark {
+  display: grid;
+  grid-template-columns: repeat(2, 0.57rem);
+  grid-template-rows: repeat(2, 0.57rem);
+  gap: 2px;
+  flex-shrink: 0;
+}
+.cohabi-studio-mark span:nth-child(1) { background: #b5832d; }
+.cohabi-studio-mark span:nth-child(2) { background: #357da1; }
+.cohabi-studio-mark span:nth-child(3) { background: #8d49b6; }
+.cohabi-studio-mark span:nth-child(4) { background: #c55f47; }
+.cohabi-studio-wordmark {
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  font-size: 0.84rem;
+  line-height: 1;
+}
+@media (max-width: 540px) {
+  .cohabi-studio-wordmark { display: none; }
 }

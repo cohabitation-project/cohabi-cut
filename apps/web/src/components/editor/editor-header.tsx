@@ -17,14 +17,12 @@ import { FaDiscord } from "react-icons/fa6";
 import { ExportButton } from "./export-button";
 import { FeedbackPopover } from "@/feedback/components/feedback-popover";
 import { ThemeToggle } from "../theme-toggle";
-import { DEFAULT_LOGO_URL } from "@/site/brand";
 import { SOCIAL_LINKS } from "@/site/social";
 import { toast } from "sonner";
 import { useEditor } from "@/editor/use-editor";
 import { CommandIcon, Logout05Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ShortcutsDialog } from "@/actions/components/shortcuts-dialog";
-import Image from "next/image";
 import { cn } from "@/utils/ui";
 
 export function EditorHeader() {
@@ -111,14 +109,12 @@ function ProjectDropdown() {
 		<>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant="ghost" size="icon" className="p-1 rounded-sm size-8">
-						<Image
-							src={DEFAULT_LOGO_URL}
-							alt="Project thumbnail"
-							width={32}
-							height={32}
-							className="invert dark:invert-0 size-5"
-						/>
+					<Button variant="ghost" className="cohabi-studio-brand h-9 gap-2 rounded-md px-2" aria-label="Cohabi Cut project menu">
+						<span className="cohabi-studio-mark" aria-hidden="true">
+							<span /><span /><span /><span />
+						</span>
+						<span className="cohabi-studio-wordmark">COHABI</span>
+						<span className="text-muted-foreground text-xs" aria-hidden="true">▾</span>
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="start" className="z-100 w-44">
