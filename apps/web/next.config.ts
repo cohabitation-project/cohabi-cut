@@ -73,4 +73,8 @@ const nextConfig: NextConfig = {
 	},
 };
 
-export default withContentCollections(withBotId(nextConfig));
+// A fresh install can hold two copies of Next's types (the app's and the workspace root's); they're the same
+// version, so this cast only tells TypeScript so (the CI build failed on it, 2026-11-24).
+export default withContentCollections(
+	withBotId(nextConfig) as Parameters<typeof withContentCollections>[0],
+);
