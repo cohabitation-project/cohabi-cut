@@ -30,9 +30,10 @@ export default function RootLayout({
 				<BotIdClient protect={protectedRoutes} />
 			</head>
 			<body className={`${siteFont.className} font-sans antialiased`}>
+				{/* Cohabi: open in Aletheia-6's cream-and-lime design (not the system's dark mode); the sun icon still switches. */}
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
+					defaultTheme="light"
 					disableTransitionOnChange={true}
 				>
 					<TooltipProvider>
