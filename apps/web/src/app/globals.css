@@ -1,3 +1,4 @@
+/* Cohabi Cut theme v0.1: brand-lime active states; preserve OpenCut editor functionality. */
 @import "tailwindcss";
 
 /* Custom variant for dark mode */
@@ -15,11 +16,11 @@
   --popover: hsl(0, 0%, 100%);
   --popover-hover: hsl(0, 0%, 96%);
   --popover-foreground: hsl(0 0% 2%);
-  --primary: hsl(200, 90%, 52%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(204, 100%, 97%);
-  --secondary-border: hsl(204, 100%, 94%);
-  --secondary-foreground: hsl(200, 98%, 39%);
+  --primary: hsl(77, 73%, 68%);
+  --primary-foreground: hsl(80, 18%, 12%);
+  --secondary: hsl(76, 45%, 94%);
+  --secondary-border: hsl(76, 34%, 85%);
+  --secondary-foreground: hsl(77, 28%, 20%);
   --muted: hsl(0 0% 85.1%);
   --muted-foreground: hsl(0 0% 50%);
   --accent: hsl(0, 0%, 96%);
@@ -55,9 +56,9 @@
   --card: hsl(0, 0%, 98%);
   --card-foreground: hsl(0 0% 13%);
   --primary-foreground: hsl(0, 0%, 98%);
-  --secondary: hsl(204, 100%, 95%);
-  --secondary-border: hsl(204, 100%, 92%);
-  --secondary-foreground: hsl(200, 98%, 37%);
+  --secondary: hsl(76, 34%, 92%);
+  --secondary-border: hsl(76, 30%, 83%);
+  --secondary-foreground: hsl(77, 28%, 20%);
   --muted: hsl(0 0% 83.1%);
   --muted-foreground: hsl(0 0% 48%);
   --accent: hsl(0, 0%, 93%);
@@ -77,9 +78,9 @@
   --popover: hsl(0, 0%, 5%);
   --popover-hover: hsl(0, 0%, 13%);
   --popover-foreground: hsl(0 0% 95%);
-  --secondary: hsl(204, 100%, 12%);
-  --secondary-border: hsl(204, 100%, 15%);
-  --secondary-foreground: hsl(200, 98%, 61%);
+  --secondary: hsl(77, 27%, 17%);
+  --secondary-border: hsl(77, 28%, 23%);
+  --secondary-foreground: hsl(77, 73%, 68%);
   --muted: hsl(0 0% 20%);
   --accent: hsl(0, 0%, 14%);
   --accent-foreground: hsl(0 0% 95%);
@@ -104,9 +105,9 @@
   --foreground: hsl(0 0% 85%);
   --card: hsl(0, 0%, 10%);
   --card-foreground: hsl(0 0% 85%);
-  --secondary: hsl(204, 67%, 9%);
-  --secondary-border: hsl(204, 100%, 14%);
-  --secondary-foreground: hsl(200, 98%, 63%);
+  --secondary: hsl(77, 23%, 16%);
+  --secondary-border: hsl(77, 26%, 22%);
+  --secondary-foreground: hsl(77, 73%, 68%);
   --muted: hsl(0 0% 22%);
   --accent: hsl(0, 0%, 15%);
   --accent-foreground: hsl(0 0% 93%);
